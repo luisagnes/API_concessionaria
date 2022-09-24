@@ -3,13 +3,13 @@ const createError = require('http-errors');
 const estoque = [
     {
         "Ano de fabricacao": "2021/22",
-        "Modelo": { "codigo": "", "nome": "Moto 1 " },
+        "Modelo": { "nome": "Moto 1 " },
         "Quantidade": "0",
         "Preco": "",
     },
     {
         "Ano de fabricacao": "2021/22",
-        "Modelo": { "codigo": "", "nome": "Moto 2 " },
+        "Modelo": { "nome": "Moto 2 " },
         "Quantidade": "1",
         "Preco": "R$24.000,00",
     },

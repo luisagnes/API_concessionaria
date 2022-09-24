@@ -7,9 +7,9 @@ const swaggerDocument = require('./swagger.json');
 
 var indexRouter = require('./routes/index');
 var routerBoletos = require('./routes/boletosRouter');
-var routerFaltas = require('./routes/faltasRouter');
+var routerEstoque = require('./routes/estoqueRouter');
 var routerNotas = require('./routes/notasRouter');
-var requerimentosRouter = require('./routes/requerimentosRouter');
+var revisaoRouter = require('./routes/revisaoRouter');
 
 var app = express();
 
@@ -21,9 +21,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', indexRouter);
 app.use('/boletos', routerBoletos);
-app.use('/faltas', routerFaltas);
+app.use('/estoque', routerEstoque);
 app.use('/notas', routerNotas);
-app.use('/requerimentos', requerimentosRouter);
+app.use('/revisao', revisaoRouter);
 
 
 

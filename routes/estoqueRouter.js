@@ -1,10 +1,9 @@
-// código do faltas Router 
 const express = require('express');
 const router = express.Router();
-const faltasController = require('../controllers/faltasController');
+const estoqueController = require('../controllers/estoqueControllers');
 
 const app = express();
 
-router.get('/', faltasController.listarFaltas );
+router.get('/', estoqueController.listarEstoque );
 
 module.exports = router;
