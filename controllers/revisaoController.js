@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 
-const requerimentos = [
+const revisao = [
     {
         "disciplina": { "codigo": "ADS030", "nome": "Manutenção de Software e DevOps" },
         "periodo": "2021/1",
@@ -19,26 +19,26 @@ const requerimentos = [
     },
 ];
 
-function listarRequerimentos (req, res, next) {
+function listarRevisao (req, res, next) {
     res.json(requerimentos);
 }
 
-function listarRequerimentosPorId (req, res, next) {
+function listarRevisaoPorId (req, res, next) {
     const id = Number(req.params.id);
     if (id > requerimentos.length) return next(createError(404, "Requerimento não localizado!"));
     res.json(requerimentos[id]);
 }
 
-function criarRequerimentos (req, res, next) {
-    const novoRequerimento = {
+function criarRevisao (req, res, next) {
+    const novoRevisao = {
         "disciplina": { "codigo": req.body.disciplina.codigo, "nome": req.body.disciplina.nome },
         "periodo": req.body.perido,
         "prova": req.body.prova,
         "argumentacao": req.body.argumentacao,
         "situacao": "Pendente"
     }
-    requerimentos.push(novoRequerimento);
-    res.status(201).json(novoRequerimento);
+    revisoes.push(novoRevisao);
+    res.status(201).json(novoRevisao);
 }
 
-module.exports = { listarRequerimentos, listarRequerimentosPorId, criarRequerimentos };
+module.exports = { listarRevisao, listarRevisaoPorId, criarRevisao };
