@@ -8,4 +8,10 @@ router.get('/', boletosController.listarBoletos );
 
 router.get('/:id', boletosController.listarBoletosPorId );
 
+router.post('/', boletosController.criarBoletos);
+
+router.put('/:id', boletosController.atualizarBoletos);
+
+router.delete('/:id', boletosController.removerBoletos);
+
 module.exports = router;
