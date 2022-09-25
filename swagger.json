@@ -1,27 +1,25 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "Aluno Online API",
-        "description": "API Rest das funcionalidades do Aluno Online",
+        "title": "Concessionaria API",
+        "description": "API Rest da Concessionaria Yamaha",
         "version": "0.0.1"
     },
-    "servers": [
-        {
-            "url": "http://localhost:3000"
-        }
-    ],
     "paths": {
-        "/notas": {
-            "description": "Notas do Aluno Online",
+        "/estoque": {
+            "description": "Estoque de motos",
             "get": {
-                "description": "Lista as notas de um aluno",
+                "description": "lista em estoque na concessionaria",
                 "responses": {
                     "200": {
                         "description": "Sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Notas"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Estoque"
+                                    }
                                 }
                             }
                         }
@@ -29,47 +27,108 @@
                 }
             }
         },
-        "/boletos": {},
-        "boletos/{id}": {},
-        "/requerimentos": {},
-        "requerimentos/{id}": {}
-    },
-    "components": {
-        "schemas": {
-            "Notas": {
-                "type": "object",
-                "properties": {
-                    "periodo": {
-                        "type": "object",
-                        "example": "2021/1"
-                    },
-                    "disciplina": {
-                        "properties": {
-                            "codigo": {
-                                "type": "string",
-                                "example": "ADS030"
-                            },
-                            "nome": {
-                                "type": "string",
-                                "example": "Manutenção de software"
+        "/boletos": {
+            "description": "Boletos de pagamento",
+            "get": {
+                "description": "lista de boletos a pagar ou pagos",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Boletos"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/boletos/{id}": {
+            "get": {
+                "description": "Exibe um boleto pelo ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Boletos"
+                                }
                             }
                         }
                     },
-                    "a1": {
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Estoque": {
+                "type": "object",
+                "properties": {
+                    "Ano_de_fabricacao": {
                         "type": "string",
-                        "example": "5.2"
+                        "example": "2021/22"
                     },
-                    "a2": {
-                        "type": "string",
-                        "example": "3.2"
+                    "Modelo": {
+                        "type": "object",
+                        "properties": {
+                            "nome": {
+                                "type": "string",
+                                "example": "moto 1"
+                            }
+                        }
                     },
-                    "a3": {
+                    "Quantidade": {
                         "type": "string",
-                        "example": "3.1"
+                        "example": "0"
                     },
-                    "media": {
+                    "Preco": {
                         "type": "string",
-                        "example": "5.0"
+                        "example": "R$28.000,00"
+                    }
+                }
+            },
+            "Boletos": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "data-entrada": {
+                        "type": "string",
+                        "example": "05/05/2022"
+                    },
+                    "vencimento": {
+                        "type": "string",
+                        "example": "05/06/2022"
+                    },
+                    "valor": {
+                        "type": "string",
+                        "example": "R$250,00"
+                    },
+                    "situacao": {
+                        "type": "string",
+                        "example": "Pago"
                     }
                 }
             }
