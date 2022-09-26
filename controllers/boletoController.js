@@ -2,21 +2,21 @@ const createError = require('http-errors');
 
 const boletos = [
     {
-        "id": "1",
+        "id": 1,
         "data_entrada": "05/05/2022",
         "vencimento": "05/06/2022",
         "valor": "R$250,00",
         "situacao": "Pago",
     },
     {
-        "id": "2",
+        "id": 2,
         "data_entrada": "28/04/2022",
         "vencimento": "28/07/2022",
         "valor": "R$360,00",
         "situacao": "Pago",
     },
     {
-        "id": "3",
+        "id": 3,
         "data_entrada": "16/02/2022",
         "vencimento": "16/08/2022",
         "valor": "R$570,00",
@@ -29,9 +29,11 @@ function listarBoletos (req, res, next) {
 }
 
 function listarBoletosPorId (req, res, next) {
-    const id = Number(req.params.id);
-    if (id > boletos.length) return next(createError(404, "Boleto não localizado!"));
-    res.json(boletos[id]);
+    const localizar = boletos.find((item) => item.id === Number(req.params.id));
+    if (!localizar) {
+      return res.status(404).json({ msg: "Estoque não localizado" });
+    }
+    res.json(localizar);
 }
 
 function criarBoletos (req, res, next) {

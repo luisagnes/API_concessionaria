@@ -2,21 +2,21 @@ const createError = require('http-errors');
 
 const estoque = [
     {
-        "id": "1",
+        "id": 1,
         "Ano_de_fabricacao": "2021/22",
         "Modelo": { "nome": "moto 1" },
         "Quantidade": "0",
         "Preco": "R$28.000,00",
     },
     {
-        "id": "2",
+        "id": 2,
         "Ano_de_fabricacao": "2019/20",
         "Modelo": { "nome": "moto 2" },
         "Quantidade": "1",
         "Preco": "R$24.000,00",
     },
     {
-        "id": "3",
+        "id": 3,
         "Ano_de_fabricacao": "2020/21",
         "Modelo": { "nome": "moto 3" },
         "Quantidade": "3",
@@ -30,9 +30,11 @@ function listarEstoque (req, res, next) {
 }
 
 function listarEstoquesPorId (req, res, next) {
-    const id = Number(req.params.id);
-    if (id > estoques.length) return next(createError(404, "estoque não localizado!"));
-    res.json(estoques[id]);
+    const localizar = estoque.find((item) => item.id === Number(req.params.id));
+    if (!localizar) {
+      return res.status(404).json({ msg: "Estoque não localizado" });
+    }
+    res.json(localizar);
 }
 
 function criarEstoque (req, res, next) {

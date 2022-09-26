@@ -2,7 +2,7 @@
     "openapi": "3.0.3",
     "info": {
         "title": "Concessionaria API",
-        "description": "API Rest da Concessionaria Yamaha",
+        "description": "API Rest da Concessionaria de motos",
         "version": "0.0.1"
     },
     "paths": {
@@ -23,6 +23,69 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/Estoques/{id}": {
+            "get": {
+                "description": "Exibe sua moto em estoque pelo ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Estoque"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
+            }
+        },
+        "/Estoque": {
+            "description": "Adicionar estoque à concessionaria",
+            "post": {
+
+            }
+        },
+        "/estoques/{id}": {
+            "description": "atualizar os estoques",
+            "put": {
+                
+            }
+        },
+        "/estoque/{id}": {
+            "delete": {
+                "description": "Deleta um Estoque pelo ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "item do estoque deletado com sucesso",
+                        "content": {}
                     }
                 }
             }
@@ -77,13 +140,51 @@
                     }
                 }
             }
+        },
+        "/boleto": {
+            "description": "criar um novo boleto",
+            "post": {
+
+            }
+        },
+        "/Boleto/{id}": {
+            "description": "atualizar os boletos e seus valores",
+            "put": {
+                
+            }
+        },
+        "/boleto/{id}": {
+            "delete": {
+                "description": "Deletar Boleto que não existe mais, pelo ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Boleto cancelado com sucesso",
+                        "content": {}
+                    }
+                }
+            }
         }
+        
     },
     "components": {
         "schemas": {
             "Estoque": {
                 "type": "object",
                 "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": 1
+                    },
                     "Ano_de_fabricacao": {
                         "type": "string",
                         "example": "2021/22"
@@ -112,7 +213,7 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "example": "1"
+                        "example": 1
                     },
                     "data-entrada": {
                         "type": "string",
