@@ -19,7 +19,13 @@ app.use('/API_Concessionarias', swaggerUi.serve, swaggerUi.setup(swaggerDocument
 
 app.use('/', indexRouter);
 app.use('/boletos', routerBoletos);
+app.use('/criar', routerBoletos);
+app.use('/atualizar', routerBoletos);
+app.use('/excluir', routerBoletos);
 app.use('/estoque', routerEstoque);
+app.use('/criar', routerEstoque);
+app.use('/atualizar', routerEstoque);
+app.use('/excluir', routerEstoque);
 
 
 

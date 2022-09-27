@@ -10,6 +10,7 @@
             "description": "Estoque de motos",
             "get": {
                 "description": "lista em estoque na concessionaria",
+                "tags": ["Estoque"],
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -27,9 +28,10 @@
                 }
             }
         },
-        "/Estoques/{id}": {
+        "/estoque/{id}": {
             "get": {
                 "description": "Exibe sua moto em estoque pelo ID",
+                "tags":["Estoque"],
                 "parameters": [
                     {
                         "name": "id",
@@ -57,21 +59,65 @@
                 }
             }
         },
-        "/Estoque": {
-            "description": "Adicionar estoque à concessionaria",
+        "/criar/estoque": {
             "post": {
-
+                "description": "Adiciona/cria um estoque",
+                "tags": ["Estoque"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estoque"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cobrança criada",
+                        "content": {}
+                    }
+                }
             }
         },
-        "/estoques/{id}": {
-            "description": "atualizar os estoques",
+        "/atualizar/estoque/{id}": {
             "put": {
-                
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "description": "Atualizar quantidade do estoque",
+                "tags": ["Estoque"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Estoque"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Estoque atualizado 100% com sucesso",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Não encontramos sua moto"
+                    }
+                }
             }
         },
-        "/estoque/{id}": {
+        "/excluir/estoque/{id}": {
             "delete": {
                 "description": "Deleta um Estoque pelo ID",
+                "tags":["Estoque"],
                 "parameters": [
                     {
                         "name": "id",
@@ -94,6 +140,7 @@
             "description": "Boletos de pagamento",
             "get": {
                 "description": "lista de boletos a pagar ou pagos",
+                "tags":["Boletos"],
                 "responses": {
                     "200": {
                         "description": "Sucesso",
@@ -114,6 +161,7 @@
         "/boletos/{id}": {
             "get": {
                 "description": "Exibe um boleto pelo ID",
+                "tags":["Boletos"],
                 "parameters": [
                     {
                         "name": "id",
@@ -141,21 +189,65 @@
                 }
             }
         },
-        "/boleto": {
-            "description": "criar um novo boleto",
+        "/criar/boletos": {
             "post": {
-
-            }
+                "description": "Cria um Boletos",
+                "tags": ["Boletos"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Boletos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Boleto criado",
+                        "content": {}
+                    }
+                }
+             } 
         },
-        "/Boleto/{id}": {
-            "description": "atualizar os boletos e seus valores",
+        "/atualizar/boletos/{id}": {
             "put": {
-                
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "description": "Atualizar boleto",
+                "tags": ["Boletos"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Boletos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Boleto cancelado com sucesso",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Não encontrado"
+                    }
+                }
             }
         },
-        "/boleto/{id}": {
+        "/excluir/boletos/{id}": {
             "delete": {
                 "description": "Deletar Boleto que não existe mais, pelo ID",
+                "tags":["Boletos"],
                 "parameters": [
                     {
                         "name": "id",
@@ -174,17 +266,12 @@
                 }
             }
         }
-        
     },
     "components": {
         "schemas": {
             "Estoque": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string",
-                        "example": 1
-                    },
                     "Ano_de_fabricacao": {
                         "type": "string",
                         "example": "2021/22"
@@ -211,10 +298,6 @@
             "Boletos": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string",
-                        "example": 1
-                    },
                     "data-entrada": {
                         "type": "string",
                         "example": "05/05/2022"

@@ -36,40 +36,38 @@ function listarBoletosPorId (req, res, next) {
     res.json(localizar);
 }
 
-function criarBoletos (req, res, next) {
-    const novoBoleto = {
-        "id": req.body.id,
-        "data_entrada": req.body.data_entrada,
-        "vencimento": req.body.vencimento,
-        "valor": req.body.valor,
-        "situacao": "pendente"
-    }
-    boletos.push(novoBoleto);
-    res.status(201).json(novoBoleto);
-}
-
 function atualizarBoletos (req, res, next) {
-    const boletoLocalizado = boletos.find(boleto => 
-        boleto.id === Number(req.params.id)
-        );
-        if(!boletoLocalizado) {
-            return res.status(404).json({msg: "não achamos o seu boleto"})
-        }
-        boletoLocalizado.data_entrada = req.body.data_entrada;
-        boletoLocalizado.vencimento = req.body.vencimento;
-        boletoLocalizado.valor = req.body.valor;
-        boletoLocalizado.situacao = req.body.situacao;
-        res.status(204).end();
+    const localizar = boletos.find(
+      (boleto) => boleto.id === Number(req.params.id)
+    );
+    if (!localizar) {
+        return res.status(404).json({ msg: "Boleto não encontrado" });
+    }
+    localizar.data_entrada = req.body.data_entrada;
+    localizar.vencimento = req.body.vencimento;
+    localizar.valor = req.body.valor;
+    localizar.situacao = req.body.situacao;
+    res.status(200).json({ msg: "Boleto atualizado com sucesso" });
+  }
+  function criarBoletos (req, res, next){
+    const novaoBoleto  = {
+    id: boletos[boletos.length-1].id + 1,
+    data_entrada: req.body.data_entrada,
+    vencimento: req.body.vencimento,
+    valor: req.body.valor,
+    situacao: req.body.situacao,
+    }
+    boletos.push(novaoBoleto);
+    res.status(201).json(novaoBoleto);
 }
 
 function removerBoletos (req, res, next) {
-    const posicaoBoleto = boletos.findIndex(boleto => 
-        boleto.id === Number(req.params.id));
-    if(posicaoBoleto < 0){
-        return res.status(404).json({msg: "não achamos o seu boleto"});
+    const localizar = boletos.findIndex(boleto => boleto.id === Number(req.params.id));
+    if(localizar < 0){
+            return res.status(404).json({msg:"Boleto não existe"});
     }
-    boletos.splice(posicaoBoleto, 1);
-    res.status(204).end();
+    boletos.splice(localizar, 1);
+    res.status(200).json({msg:"Boleto excluído com sucesso"});
 }
 
 module.exports = { listarBoletos, listarBoletosPorId, criarBoletos, atualizarBoletos, removerBoletos };
